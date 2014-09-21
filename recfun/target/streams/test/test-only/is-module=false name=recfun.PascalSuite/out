@@ -1,0 +1,11 @@
+[0m[[0minfo[0m] [0m[32mPascalSuite:[0m[0m
+[0m[[0minfo[0m] [0m[32m- pascal: col=0,row=2[0m[0m
+[0m[[0minfo[0m] [0m[32m- pascal: col=1,row=2[0m[0m
+[0m[[0minfo[0m] [0m[32m- pascal: col=1,row=3[0m[0m
+[0m[[0minfo[0m] [0m[32m- pascal: bad row input[0m[0m
+[0m[[0minfo[0m] [0m[32m- pascal: bad column input[0m[0m
+[0m[[0minfo[0m] [0m[32m- pascal: column out of range input[0m[0m
+[0m[[0minfo[0m] [0m[32m- pascal: col=3, row=1[0m[0m
+[0m[[0minfo[0m] [0m[32m- pascal: symmetry[0m[0m
+[0m[[0minfo[0m] [0m[32m- pascal: base cases[0m[0m
+[0m[[0minfo[0m] [0m[32m- pascal: extreme numbers[0m[0m
