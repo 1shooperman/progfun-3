@@ -138,10 +138,13 @@ class FunSetSuite extends FunSuite {
   test("forall") {
     new TestSets {
       val bound: Set = (x: Int) => x >= -1000 && x <= 1000
+      val s: Set = x => x > 0 && x < 101
+      val doubled: Set = map(s, x => x * 2)
       assert(forall(negatives, x => x * -1 > 0), "all negatives turn pos when mult by -1")
       assert(forall(bound, x => x < 1001), "< 1001")
       assert(forall(bound, x => x > -1001), " > -1001")
       assert(forall(negatives, x => x < 0), "all sum zero")
+      assert(forall(doubled, x => x % 2 == 0), "evens")
     }
   }
 
@@ -155,6 +158,15 @@ class FunSetSuite extends FunSuite {
   test("map") {
     new TestSets {
       val s = map(x => x > 0 && x <= 10, x => x * -1)
+      val x1: Set = x => x > 0 && x < 8 && x % 2 > 0
+      val m: Set = union(union(x1, singletonSet(1000)), singletonSet(4))
+      val x2: Set = x => x >= 0 && x < 8 && x % 2 == 0
+      val m2: Set = union(union(x2, singletonSet(999)),singletonSet(3))
+
+      //printSet(m)
+      //printSet(m2)
+      //printSet(map(m, x => x - 1))
+      //assert(map(m, x => x - 1) == m2)
       assert(contains(s, -9), "contains -9")
       assert(!contains(s, 1), "does not contain 1")
     }
