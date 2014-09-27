@@ -163,10 +163,7 @@ class FunSetSuite extends FunSuite {
       val x2: Set = x => x >= 0 && x < 8 && x % 2 == 0
       val m2: Set = union(union(x2, singletonSet(999)),singletonSet(3))
 
-      //printSet(m)
-      //printSet(m2)
-      //printSet(map(m, x => x - 1))
-      //assert(map(m, x => x - 1) == m2)
+      assert(map(m, x => x - 1).toString === m2.toString)
       assert(contains(s, -9), "contains -9")
       assert(!contains(s, 1), "does not contain 1")
     }
