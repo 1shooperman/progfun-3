@@ -6,9 +6,9 @@ abstract class IntSet {
   def union(other: IntSet): IntSet
 }
 
-object Empty extends IntSet {
+class Empty extends IntSet {
   def contains(x: Int): Boolean = false
-  def incl(x: Int): IntSet = new NonEmpty(x, Empty, Empty)
+  def incl(x: Int): IntSet = new NonEmpty(x, new Empty, new Empty)
   def union(other: IntSet): IntSet = other
   override def toString = "."
 }
