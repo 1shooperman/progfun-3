@@ -82,10 +82,16 @@ class HuffmanSuite extends FunSuite {
       assert(decode(tree, bits) === "BAC".toList)
     }
   }
-  
+
   test("encode from assignment details") {
     new TestTrees {
-      assert(encode(tree)("D".toList) === List(1,0,1,1))
+      assert(encode(tree)("D".toList) === List(1, 0, 1, 1))
+    }
+  }
+
+  test("encode from assignment details expanded") {
+    new TestTrees {
+      assert(encode(tree)("DD".toList) === List(1, 0, 1, 1, 1, 0, 1, 1))
     }
   }
 
