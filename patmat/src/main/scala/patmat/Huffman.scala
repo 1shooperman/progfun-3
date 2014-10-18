@@ -222,7 +222,10 @@ object Huffman {
    * This function returns the bit sequence that represents the character `char` in
    * the code table `table`.
    */
-  def codeBits(table: CodeTable)(char: Char): List[Bit] = ???
+  def codeBits(table: CodeTable)(char: Char): List[Bit] = table.filter(c => c._1 == char) match {
+    case Nil => List()
+    case b :: _ => b._2
+  }
 
   /**
    * Given a code tree, create a code table which contains, for every character in the
@@ -232,14 +235,23 @@ object Huffman {
    * a valid code tree that can be represented as a code table. Using the code tables of the
    * sub-trees, think of how to build the code table for the entire tree.
    */
-  def convert(tree: CodeTree): CodeTable = ???
+  def convert(tree: CodeTree): CodeTable = tree match {
+    case Leaf(c,w) => List((c, List()))
+    case Fork(l,r,cs,w) => cs.map(c => (c,encode(tree)(List(c))))
+  }
 
   /**
    * This function takes two code tables and merges them into one. Depending on how you
    * use it in the `convert` method above, this merge method might also do some transformations
    * on the two parameter code tables.
    */
-  def mergeCodeTables(a: CodeTable, b: CodeTable): CodeTable = ???
+  def mergeCodeTables(a: CodeTable, b: CodeTable): CodeTable = a match {
+    case Nil => b
+    case x :: xs => codeBits(b)(x._1) match { 
+      case Nil => mergeCodeTables(xs, x :: b)
+      case _ => mergeCodeTables(xs, b)
+    }
+  }
 
   /**
    * This function encodes `text` according to the code tree `tree`.
@@ -247,8 +259,17 @@ object Huffman {
    * To speed up the encoding process, it first converts the code tree to a code table
    * and then uses it to perform the actual encoding.
    */
-  def quickEncode(tree: CodeTree)(text: List[Char]): List[Bit] = ???
+  def quickEncode(tree: CodeTree)(text: List[Char]): List[Bit] = {
+    def encode(t: CodeTable, cs: List[Char]): List[Bit] = cs match {
+      case c :: Nil => t.filter(xs => xs._1 == c).head._2
+      case c :: cs => t.filter(xs => xs._1 == c).head._2 ::: encode(t, cs)
+    }
+    encode(convert(tree), text)
+  }
 
+  /**
+   * print a tree
+   */
   def printTree(tree: CodeTree): Any = tree match {
     case Leaf(c, w) => println("(" + c + ")" + w)
     case Fork(l, r, s, w) => {
