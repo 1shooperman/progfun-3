@@ -5,18 +5,22 @@ import Huffman._
 object scratch {
   decodedSecret.mkString                          //> res0: String = huffmanestcool
 
-  val test = new someTest                         //> test  : patmat.someTest = patmat.someTest@31c1fb39
+  val test = new someTest                         //> test  : patmat.someTest = patmat.someTest@39b5e7a0
   
-  convert(test.t1)                                //> res1: patmat.Huffman.CodeTable = List((a,List(0)), (b,List(1)))
+  makeOrderedLeafList(Nil)                        //> res1: List[patmat.Huffman.Leaf] = List()
   
-  convert(test.tree)                              //> res2: patmat.Huffman.CodeTable = List((A,List(0)), (B,List(1, 0, 0)), (C,Lis
+  convert(test.t1)                                //> res2: patmat.Huffman.CodeTable = List((a,List(0)), (b,List(1)))
+  
+  convert(test.tree)                              //> res3: patmat.Huffman.CodeTable = List((A,List(0)), (B,List(1, 0, 0)), (C,Lis
                                                   //| t(1, 0, 1, 0)), (D,List(1, 0, 1, 1)), (E,List(1, 1, 0, 0)), (F,List(1, 1, 0,
                                                   //|  1)), (G,List(1, 1, 1, 0)), (H,List(1, 1, 1, 1)))
-  codeBits(convert(test.tree))('B')               //> res3: List[patmat.Huffman.Bit] = List(1, 0, 0)
+  codeBits(convert(test.tree))('B')               //> res4: List[patmat.Huffman.Bit] = List(1, 0, 0)
   
   mergeCodeTables(convert(test.t1), convert(test.t2))
-                                                  //> res4: patmat.Huffman.CodeTable = List((a,List(0, 0)), (b,List(0, 1)), (d,Lis
+                                                  //> res5: patmat.Huffman.CodeTable = List((a,List(0, 0)), (b,List(0, 1)), (d,Lis
                                                   //| t(1)))
+  
+  combine(Nil)                                    //> res6: List[patmat.Huffman.CodeTree] = List()
 }
 
 class someTest extends TestTrees {

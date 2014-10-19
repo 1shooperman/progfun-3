@@ -86,6 +86,7 @@ object Huffman {
   def makeOrderedLeafList(freqs: List[(Char, Int)]): List[Leaf] = freqs.sorted match {
     case List((c, w)) => List(Leaf(c, w))
     case (c, w) :: ls => Leaf(c, w) :: makeOrderedLeafList(ls)
+    case _ => List()
   }
 
   /**
@@ -108,6 +109,7 @@ object Huffman {
   def combine(trees: List[CodeTree]): List[CodeTree] = trees match {
     case xs if singleton(xs) => xs
     case y :: ys => makeCodeTree(y, ys.head) :: ys.tail
+    case _ => List()
   }
 
   /**
@@ -137,8 +139,9 @@ object Huffman {
    * The parameter `chars` is an arbitrary text. This function extracts the character
    * frequencies from that text and creates a code tree based on them.
    */
-  def createCodeTree(chars: List[Char]): CodeTree =
+  def createCodeTree(chars: List[Char]): CodeTree = 
     until(singleton, combine)(makeOrderedLeafList(times(chars))).head
+      
 
   // Part 3: Decoding
 
