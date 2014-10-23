@@ -45,8 +45,35 @@ object listfun {
 
   def encode[T](xs: List[T]): List[(T, Int)] =
     pack(xs) map (ys => (ys.head, ys.length))     //> encode: [T](xs: List[T])List[(T, Int)]
-  
 
   // should be List(("a", 3), ("b", 1), ("c", 2), ("a", 1))
   encode(List("a", "a", "a", "b", "c", "c", "a")) //> res7: List[(String, Int)] = List((a,3), (b,1), (c,2), (a,1))
+
+  def sum(xs: List[Int]): Int = xs match {
+    case Nil => 0
+    case y :: ys => y + sum(ys)
+  }                                               //> sum: (xs: List[Int])Int
+
+  // reduceLeft puts a binary operator between adjacent
+  // elements of a list
+  def sum2(xs: List[Int]): Int = (0 :: xs) reduceLeft ((x, y) => x + y)
+                                                  //> sum2: (xs: List[Int])Int
+  def product(xs: List[Int]): Int = (1 :: xs) reduceLeft ((x, y) => x * y)
+                                                  //> product: (xs: List[Int])Int
+  def product2(xs: List[Int]): Int = (1 :: xs) reduceLeft (_ * _)
+                                                  //> product2: (xs: List[Int])Int
+  def sum3(xs: List[Int]): Int = (xs foldLeft 0)(_ + _)
+                                                  //> sum3: (xs: List[Int])Int
+
+  def concat[T](xs: List[T], ys: List[T]): List[T] =
+    (xs foldRight ys)(_ :: _)                     //> concat: [T](xs: List[T], ys: List[T])List[T]
+
+  //    def concat2[T](xs: List[T], ys: List[T]): List[T] =
+  //    (xs foldLeft ys) (_ :: _)
+
+  def mapFun[T, U](xs: List[T], f: T => U): List[U] =
+    (xs foldRight List[U]())(f(_) :: _)           //> mapFun: [T, U](xs: List[T], f: T => U)List[U]
+
+  def lengthFun[T](xs: List[T]): Int =
+    (xs foldRight 0)((x, y) => y + 1)             //> lengthFun: [T](xs: List[T])Int
 }
