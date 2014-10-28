@@ -46,6 +46,7 @@ object foldmap {
   } yield {
     println("xElem " + i)
     println("n " + n)
+    n
   }                                               //> xElem 1
                                                   //| n 2
                                                   //| xElem 1
@@ -58,7 +59,7 @@ object foldmap {
                                                   //| n 2
                                                   //| xElem 3
                                                   //| n 1
-                                                  //| res4: List[Unit] = List((), (), (), (), (), ())
+                                                  //| res4: List[Int] = List(2, 1, 2, 1, 2, 1)
   
   
   val y = List(('a',2),('b',2))                   //> y  : List[(Char, Int)] = List((a,2), (b,2))
