@@ -10,7 +10,8 @@ trait Solver extends GameDef {
   /**
    * Returns `true` if the block `b` is at the final position
    */
-  def done(b: Block): Boolean = ???
+  def done(b: Block): Boolean = 
+    (b.isStanding && b.b1 == goal)
 
   /**
    * This function takes two arguments: the current block `b` and
@@ -28,8 +29,15 @@ trait Solver extends GameDef {
    * It should only return valid neighbors, i.e. block positions
    * that are inside the terrain.
    */
-  def neighborsWithHistory(b: Block, history: List[Move]): Stream[(Block, List[Move])] = ???
-
+  def neighborsWithHistory(b: Block, history: List[Move]): Stream[(Block, List[Move])] = {
+    val allValidMoves = (List((b.left,Left),(b.right,Right),(b.up,Up),(b.down, Down)) filter (move => move._1.isLegal))
+    allValidMoves.map {
+      move => {
+        (move._1, move._2 :: history)
+      }
+    }.toStream
+  }
+  
   /**
    * This function returns the list of neighbors without the block
    * positions that have already been explored. We will use it to

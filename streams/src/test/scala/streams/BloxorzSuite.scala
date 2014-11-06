@@ -27,10 +27,10 @@ class BloxorzSuite extends FunSuite {
       }
 
     // so I don't have to keep typing the full word
-    lazy val u = Up
-    lazy val r = Right
-    lazy val l = Left
-    lazy val d = Down
+    val u = Up
+    val r = Right
+    val l = Left
+    val d = Down
   }
 
   trait Level1 extends SolutionChecker {
@@ -129,7 +129,7 @@ class BloxorzSuite extends FunSuite {
   }
 
   // from forums https://class.coursera.org/progfun-005/forum/thread?thread_id=908
-  test("check level 1 localNeighbors") {
+  test("check level 1 legalNeighbors") {
     new Level1 {
       assert((startBlock.legalNeighbors) === List((startBlock.right, Right), (startBlock.down, Down)))
     }
