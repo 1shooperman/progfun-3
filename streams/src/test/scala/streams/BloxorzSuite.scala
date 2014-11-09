@@ -92,7 +92,7 @@ class BloxorzSuite extends FunSuite {
     |------ooooo----
     |-------ooo-----""".stripMargin
 
-    val optsolution = List(r, r, r, d, r, d, d, r, d, d, r, u, l, l, l, u, u, l, u, u, u, r, r, r, d, d, r, d, r, r, r, d, l, u, u, r, d, l, u, d, r)
+    val optsolution = List(Right, Down, Down, Right, Down, Right, Right, Up, Left, Down, Down, Right, Right, Right, Up, Up, Up, Left, Up, Up, Left, Left, Left, Up, Right, Down, Down, Right, Down, Down, Right, Down, Right, Right, Right)
   }
 
   // level 1 tests
@@ -111,13 +111,38 @@ class BloxorzSuite extends FunSuite {
 
   test("optimal solution for level 1") {
     new Level1 {
-      assert(solve(solution) == Block(goal, goal))
+      assert(solve(solution) === Block(goal, goal))
     }
   }
 
   test("optimal solution length for level 1") {
     new Level1 {
       assert(solution.length == optsolution.length)
+    }
+  }
+
+  // from assignment
+  test("You should implement the above example as a test case in the test suite BloxorzSuite.") {
+    new Level1 {
+      assert(neighborsWithHistory(Block(Pos(1, 1), Pos(1, 1)), List(Left, Up)).toSet === Set(
+        (Block(Pos(1, 2), Pos(1, 3)), List(Right, Left, Up)),
+        (Block(Pos(2, 1), Pos(3, 1)), List(Down, Left, Up))))
+    }
+  }
+
+  // from assignment
+  test("Again, you should convert this example into a test case.") {
+    new Level1 {
+      assert {
+        newNeighborsOnly(
+          Set(
+            (Block(Pos(1, 2), Pos(1, 3)), List(Right, Left, Up)),
+            (Block(Pos(2, 1), Pos(3, 1)), List(Down, Left, Up))).toStream,
+
+          Set(Block(Pos(1, 2), Pos(1, 3)), Block(Pos(1, 1), Pos(1, 1)))) === Set(
+            (Block(Pos(2, 1), Pos(3, 1)), List(Down, Left, Up))).toStream
+
+      }
     }
   }
 
